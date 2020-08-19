@@ -1,13 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import List from "./components/List";
 
 function App() {
-  return (
-    <div className="App">
-      123
-    </div>
-  );
+    return (
+        <div className="todo">
+            <div className="todo__sidebar">
+                <List />
+            </div>
+            <div className="todo__tasks">
+                tasks
+            </div>
+        </div>
+    );
 }
 
 export default App;
