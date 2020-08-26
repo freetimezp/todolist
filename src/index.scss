@@ -16,12 +16,12 @@ body {
   border: 1px solid #f1f1f1;
   border-radius: 10px;
   box-shadow: 1px 2px 20px #f3f3f3;
-  font-size: 14px;
+  font-size: 11px;
   &__sidebar {
     padding: 60px 20px;
     background-color: #f4f6f8;
-    width: 200px;
-    height: 100%;
+    width: 220px;
+    height: calc(100% - 120px);
     border-right: 1px solid #f1f1f1;
   }
 }

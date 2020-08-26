@@ -36,11 +36,20 @@ function App() {
                     {
                         color: "pink",
                         name: 'Фильмы и сериалы'
+                    },
+                    {
+                        color: "yellow",
+                        name: 'Музыка'
+                    },
+                    {
+                        color: "grey",
+                        name: 'Личное'
                     }
-                ]}/>
+                ]}
+                isRemovable={true}/>
             </div>
             <div className="todo__tasks">
-                tasks
+
             </div>
         </div>
     );
