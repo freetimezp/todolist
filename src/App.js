@@ -1,5 +1,6 @@
 import React from 'react';
 import List from "./components/List/List";
+import AddList from "./components/AddList/AddList";
 
 function App() {
     return (
@@ -49,25 +50,7 @@ function App() {
                         }
                     ]}
                     isRemovable={true}/>
-                <List
-                    items={[
-                        {
-                            className: "list__add-button",
-                            icon: (
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="12" width="12"
-                                    viewBox="0 0 16 16" fill="none">
-                                    <path
-                                        d="M8 1V15" stroke="black" strokeWidth="2" strokeLinecap="round"
-                                        strokeLinejoin="round"/>
-                                    <path
-                                        d="M1 8H15" stroke="black" strokeWidth="2" strokeLinecap="round"
-                                        strokeLinejoin="round"/>
-                                </svg>),
-                            name: 'Добавить список'
-                        }
-                    ]}/>
+                <AddList />
             </div>
             <div className="todo__tasks">
 
