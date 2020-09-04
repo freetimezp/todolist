@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
+
 import List from "../List/List";
+import Badge from "../Badge/Badge";
 
 import './AddList.scss';
 
-const AddList = (props) => {
-    const [visiblePopup, setvisiblePopup] = useState(false);
+
+const AddList = ({colors}) => {
+    const [visiblePopup, setvisiblePopup] = useState(true);
 
     return (
         <div className="add-list">
@@ -31,7 +34,13 @@ const AddList = (props) => {
             />
             {visiblePopup && (
                 <div className="add-list__popup">
-                    1234
+                    <input className="field" type="text" placeholder="Название списка"/>
+                    <div className="add-list__popup-colors">
+                        {
+                            colors.map(color => <Badge key={color.id} color={color.name}/>)
+                        }
+                    </div>
+                    <button className="button">Добавить</button>
                 </div>
             )}
         </div>

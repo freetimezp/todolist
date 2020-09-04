@@ -26,3 +26,32 @@ body {
   }
 }
 
+.field {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #efefef;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 8px 12px;
+  transition: all 0.4s ease;
+  &:focus {
+    border-color: #dbdbdb;
+  }
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #4DD599;
+  border-radius: 4px;
+  color: #fff;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  &:hover {
+    background-color: darken(#4DD599, 10%);
+  }
+  &:active {
+    background-color: darken(#4DD599, 15%);
+  }
+}
+

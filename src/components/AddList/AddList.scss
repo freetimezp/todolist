@@ -1,9 +1,31 @@
 .add-list {
   &__popup {
-    width: 235px;
+    width: 240px;
     height: 150px;
     background: #fff;
     box-shadow: 6px 6px 10px rgba(0,0,0, 0.1);
     border-radius: 10px;
+    padding: 18px;
+    .button {
+      width: 100%;
+      margin-top: 15px;
+    }
+    &-colors {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      .badge {
+        width: 20px;
+        height: 20px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        &:hover {
+          border: 2px solid rgba(120, 117, 117, 0.8);
+        }
+        &.active {
+          border: 2px solid #525252;
+        }
+      }
+    }
   }
 }
