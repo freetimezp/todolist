@@ -7,9 +7,19 @@ import closeSvg from '../../assets/img/close.svg';
 
 import './AddList.scss';
 
-const AddList = ({colors}) => {
+const AddList = ({colors, onAddListItem}) => {
     const [visiblePopup, setvisiblePopup] = useState(false);
     const [selectedColor, setSelectedColor] = useState(colors[0].id);
+    const [inputValue, setInputValue] = useState('');
+
+    const addListItem = () => {
+        if(!inputValue) {
+            alert('Введите название списка задач');
+            return;
+        }
+        const color = colors.filter(c => c.id === selectedColor)[0].name;
+        onAddListItem({id: Math.random(), name: inputValue, color: color});
+    }
 
     return (
         <div className="add-list">
@@ -41,7 +51,14 @@ const AddList = ({colors}) => {
                         onClick={ () => { setvisiblePopup(false); } }
                         alt="close button"
                         className="add-list__popup-close-btn" />
-                    <input className="field" type="text" placeholder="Название списка"/>
+                    <input
+                        value={inputValue}
+                        onChange={
+                            event => setInputValue(event.target.value)
+                        }
+                        className="field"
+                        type="text"
+                        placeholder="Название списка"/>
                     <div className="add-list__popup-colors">
                         {
                             colors.map(color => (
@@ -53,7 +70,9 @@ const AddList = ({colors}) => {
                             ))
                         }
                     </div>
-                    <button className="button">Добавить</button>
+                    <button onClick={ addListItem } className="button">
+                        Добавить
+                    </button>
                 </div>
             )}
         </div>
