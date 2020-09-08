@@ -12,13 +12,20 @@ const AddList = ({colors, onAddListItem}) => {
     const [selectedColor, setSelectedColor] = useState(colors[0].id);
     const [inputValue, setInputValue] = useState('');
 
+    const onClose = () => {
+        setvisiblePopup(false);
+        setInputValue('');
+        setSelectedColor(colors[0].id);
+    }
+
     const addListItem = () => {
         if(!inputValue) {
             alert('Введите название списка задач');
             return;
         }
         const color = colors.filter(c => c.id === selectedColor)[0].name;
-        onAddListItem({id: Math.random(), name: inputValue, color: color});
+        onAddListItem({id: Math.random(), name: inputValue, color: color})
+        onClose();
     }
 
     return (
@@ -48,7 +55,7 @@ const AddList = ({colors, onAddListItem}) => {
                 <div className="add-list__popup">
                     <img
                         src={ closeSvg }
-                        onClick={ () => { setvisiblePopup(false); } }
+                        onClick={ onClose }
                         alt="close button"
                         className="add-list__popup-close-btn" />
                     <input
