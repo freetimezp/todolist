@@ -13,6 +13,7 @@ body {
 }
 
 .todo {
+  display: flex;
   border: 1px solid #f1f1f1;
   border-radius: 10px;
   box-shadow: 1px 2px 20px #f3f3f3;
@@ -23,6 +24,10 @@ body {
     width: 220px;
     height: calc(100% - 120px);
     border-right: 1px solid #f1f1f1;
+  }
+  &__tasks {
+    flex: 1;
+    padding: 60px;
   }
 }
 
@@ -54,4 +59,6 @@ body {
     background-color: darken(#4DD599, 15%);
   }
 }
+
+
 
