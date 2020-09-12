@@ -6,7 +6,6 @@ import Tasks from "./components/Tasks/Tasks";
 
 import DB from './assets/DB.json';
 
-
 function App() {
     const [lists, setLists] = useState(
         DB.lists.map( item => {
