@@ -1,26 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
-import List from "./components/List/List";
-import AddList from "./components/AddList/AddList";
-import Tasks from "./components/Tasks/Tasks";
+import {List, AddList, Tasks} from './components/components';
 
-import DB from './assets/DB.json';
+//import DB from './assets/DB.json'; yarn fake-json
 
 function App() {
-    const [lists, setLists] = useState(
-        DB.lists.map( item => {
-            item.color = DB.colors.filter(
-                color => color.id === item.colorId
-            )[0].name;
-            return item;
-        })
-    );
+
+    const [lists, setLists] = useState(null);
+    const [colors, setColors] = useState(null);
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/lists?_expand=color').then(({data}) => { // get data from response
+            setLists(data);
+        });
+        axios.get('http://localhost:3001/colors').then(({data}) => { // get data from response
+            setColors(data);
+        });
+    }, []);
 
     const onAddListItem = (obj) => {
-        const newLists = [
-            ...lists,
-            obj
-        ];
+        const newLists = [...lists, obj];
         setLists(newLists);
     };
 
@@ -47,15 +47,21 @@ function App() {
                             active: true
                         }
                     ]}/>
-                <List
-                    items={lists}
-                    isRemovable={true}
-                    onRemove={ (list) => {console.log(list);} }
-                />
-                <AddList onAddListItem={onAddListItem} colors={DB.colors} />
+                {lists ? ( // downloading lists from json server
+                    <List
+                        items={lists}
+                        isRemovable={true}
+                        onRemove={ list => {
+                            console.log(list);
+                        }}
+                    />
+                ) : (
+                    'Downloading lists.. wait..'
+                )}
+                <AddList onAddListItem={onAddListItem} colors={colors}/>
             </div>
             <div className="todo__tasks">
-                <Tasks />
+                <Tasks/>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
-import List from "../List/List";
-import Badge from "../Badge/Badge";
+import {List, Badge} from '../components.js';
 
 import closeSvg from '../../assets/img/close.svg';
 
@@ -9,8 +9,14 @@ import './AddList.scss';
 
 const AddList = ({colors, onAddListItem}) => {
     const [visiblePopup, setvisiblePopup] = useState(false);
-    const [selectedColor, setSelectedColor] = useState(colors[0].id);
+    const [selectedColor, setSelectedColor] = useState(3);
     const [inputValue, setInputValue] = useState('');
+
+    useEffect(() => {
+        if (Array.isArray(colors)) {
+            setSelectedColor(colors[0].id);
+        }
+    }, [colors]);
 
     const onClose = () => {
         setvisiblePopup(false);
@@ -19,13 +25,17 @@ const AddList = ({colors, onAddListItem}) => {
     }
 
     const addListItem = () => {
-        if(!inputValue) {
+        if (!inputValue) {
             alert('Введите название списка задач');
             return;
         }
-        const color = colors.filter(c => c.id === selectedColor)[0].name;
-        onAddListItem({id: Math.random(), name: inputValue, color: color})
-        onClose();
+        axios.post('http://localhost:3001/lists', {name: inputValue, colorId: selectedColor}).then(
+            ({data}) => {
+                const color = colors.filter(c => c.id === selectedColor)[0].name;
+                const listObj = {...data, color: {name: color}}; //create copy of data and add new object color
+                onAddListItem(listObj);
+                onClose();
+            });
     }
 
     return (
@@ -54,10 +64,10 @@ const AddList = ({colors, onAddListItem}) => {
             {visiblePopup && (
                 <div className="add-list__popup">
                     <img
-                        src={ closeSvg }
-                        onClick={ onClose }
+                        src={closeSvg}
+                        onClick={onClose}
                         alt="close button"
-                        className="add-list__popup-close-btn" />
+                        className="add-list__popup-close-btn"/>
                     <input
                         value={inputValue}
                         onChange={
@@ -69,7 +79,9 @@ const AddList = ({colors, onAddListItem}) => {
                     <div className="add-list__popup-colors">
                         {
                             colors.map(color => (
-                                <Badge onClick={() => { setSelectedColor(color.id) }}
+                                <Badge onClick={() => {
+                                    setSelectedColor(color.id)
+                                }}
                                        key={color.id}
                                        color={color.name}
                                        className={selectedColor === color.id && 'active'}
@@ -77,7 +89,7 @@ const AddList = ({colors, onAddListItem}) => {
                             ))
                         }
                     </div>
-                    <button onClick={ addListItem } className="button">
+                    <button onClick={addListItem} className="button">
                         Добавить
                     </button>
                 </div>
