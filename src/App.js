@@ -51,8 +51,9 @@ function App() {
                     <List
                         items={lists}
                         isRemovable={true}
-                        onRemove={ list => {
-                            console.log(list);
+                        onRemove={ id => {
+                            const newLists = lists.filter(item => item.id !== id); // exclude from lists deleted id
+                            setLists(newLists);
                         }}
                     />
                 ) : (

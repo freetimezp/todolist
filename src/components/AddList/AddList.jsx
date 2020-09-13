@@ -11,6 +11,7 @@ const AddList = ({colors, onAddListItem}) => {
     const [visiblePopup, setvisiblePopup] = useState(false);
     const [selectedColor, setSelectedColor] = useState(3);
     const [inputValue, setInputValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (Array.isArray(colors)) {
@@ -29,12 +30,17 @@ const AddList = ({colors, onAddListItem}) => {
             alert('Введите название списка задач');
             return;
         }
-        axios.post('http://localhost:3001/lists', {name: inputValue, colorId: selectedColor}).then(
-            ({data}) => {
-                const color = colors.filter(c => c.id === selectedColor)[0].name;
-                const listObj = {...data, color: {name: color}}; //create copy of data and add new object color
-                onAddListItem(listObj);
-                onClose();
+        setIsLoading(true);
+        axios.post('http://localhost:3001/lists', {name: inputValue, colorId: selectedColor})
+            .then(
+                ({data}) => {
+                    const color = colors.filter(c => c.id === selectedColor)[0].name;
+                    const listObj = {...data, color: {name: color}}; //create copy of data and add new object color
+                    onAddListItem(listObj);
+                    onClose();
+                })
+            .finally(() => { // no metter true or false with .then after set state(false)
+                setIsLoading(false);
             });
     }
 
@@ -90,7 +96,7 @@ const AddList = ({colors, onAddListItem}) => {
                         }
                     </div>
                     <button onClick={addListItem} className="button">
-                        Добавить
+                        {isLoading ? 'Добавление...' : 'Добавить'}
                     </button>
                 </div>
             )}

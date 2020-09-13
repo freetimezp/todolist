@@ -1,6 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 
-import Badge from "../Badge/Badge";
+import {Badge} from '../components';
 
 import removeSvg from '../../assets/img/close.svg';
 
@@ -10,7 +11,10 @@ import classNames from 'classnames';
 const List = ({items, isRemovable, onClick, onRemove}) => {
     const removeList = (item) => {
         if(window.confirm('Вы действительно хотитет удалить список?')) {
-            onRemove(item);
+            axios.delete('http://localhost:3001/lists/' + item.id).then(() => {
+                onRemove(item.id);
+
+            });
         }
     };
     return (
