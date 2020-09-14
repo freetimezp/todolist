@@ -26,6 +26,12 @@
         opacity: 0.8;
       }
     }
+    span {
+      width: 160px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
     &:hover {
       background: rgba(255,255,255, 0.8);
     }

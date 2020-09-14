@@ -9,6 +9,7 @@ function App() {
 
     const [lists, setLists] = useState(null);
     const [colors, setColors] = useState(null);
+    const [activeList, setActiveList] = useState(null);
 
     useEffect(() => {
         axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => { // get data from response
@@ -55,6 +56,10 @@ function App() {
                             const newLists = lists.filter(item => item.id !== id); // exclude from lists deleted id
                             setLists(newLists);
                         }}
+                        onClickItem={ item => {
+                            setActiveList(item);
+                        }}
+                        activeList={activeList}
                     />
                 ) : (
                     'Downloading lists.. wait..'
@@ -62,7 +67,7 @@ function App() {
                 <AddList onAddListItem={onAddListItem} colors={colors}/>
             </div>
             <div className="todo__tasks">
-                {lists && <Tasks list={lists[1]}/>}
+                {lists && activeList &&  <Tasks list={activeList}/>}
             </div>
         </div>
     );
