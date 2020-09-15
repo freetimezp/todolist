@@ -25,6 +25,16 @@ function App() {
         setLists(newLists);
     };
 
+    const onEditListTitle = (id, title) => {
+        const newLists = lists.map(list => {
+            if (list.id === id) {
+                list.name = title;
+            }
+            return list;
+        });
+        setLists(newLists);
+    }
+
     return (
         <div className="todo">
             <div className="todo__sidebar">
@@ -52,11 +62,11 @@ function App() {
                     <List
                         items={lists}
                         isRemovable={true}
-                        onRemove={ id => {
+                        onRemove={id => {
                             const newLists = lists.filter(item => item.id !== id); // exclude from lists deleted id
                             setLists(newLists);
                         }}
-                        onClickItem={ item => {
+                        onClickItem={item => {
                             setActiveList(item);
                         }}
                         activeList={activeList}
@@ -67,7 +77,11 @@ function App() {
                 <AddList onAddListItem={onAddListItem} colors={colors}/>
             </div>
             <div className="todo__tasks">
-                {lists && activeList &&  <Tasks list={activeList}/>}
+                {lists && activeList
+                && <Tasks
+                    list={activeList}
+                    onEditTitle={onEditListTitle}
+                />}
             </div>
         </div>
     );
