@@ -60,6 +60,9 @@ body {
   &:active {
     background-color: darken(#4DD599, 15%);
   }
+  &:disabled {
+    background-color: #d4d4d4;
+  }
   &--cancel {
     background-color: #d9dbdc;
     color: #444444;
