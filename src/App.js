@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import {Route} from 'react-router-dom';
 
 import {List, AddList, Tasks} from './components/components';
 
@@ -27,10 +28,10 @@ function App() {
 
     const onAddTask = (listId, taskObj) => {
         const newList = lists.map(item => {
-           if(item.id === listId) {
-               item.tasks = [...item.tasks, taskObj];
-           }
-           return item;
+            if (item.id === listId) {
+                item.tasks = [...item.tasks, taskObj];
+            }
+            return item;
         });
         setLists(newList);
     };
@@ -87,12 +88,26 @@ function App() {
                 <AddList onAddListItem={onAddListItem} colors={colors}/>
             </div>
             <div className="todo__tasks">
-                {lists && activeList
-                && <Tasks
-                    list={activeList}
-                    onEditTitle={onEditListTitle}
-                    onAddTask={onAddTask}
-                />}
+                <Route exaxt path="/">
+                    { lists &&
+                        lists.map(list => (
+                            <Tasks
+                                list={list}
+                                onEditTitle={onEditListTitle}
+                                onAddTask={onAddTask}
+                                withoutEmpty
+                            />
+                        ))
+                    }
+                </Route>
+                <Route path="/lists/:id">
+                    {lists && activeList
+                    && <Tasks
+                        list={activeList}
+                        onEditTitle={onEditListTitle}
+                        onAddTask={onAddTask}
+                    />}
+                </Route>
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ import classNames from 'classnames';
 
 const List = ({items, isRemovable, onClick, onRemove, onClickItem, activeList}) => {
     const removeList = (item) => {
-        if(window.confirm('Вы действительно хотитет удалить список?')) {
+        if (window.confirm('Вы действительно хотитет удалить список?')) {
             axios.delete('http://localhost:3001/lists/' + item.id).then(() => {
                 onRemove(item.id);
 
@@ -23,7 +23,9 @@ const List = ({items, isRemovable, onClick, onRemove, onClickItem, activeList}) 
                 <li
                     key={index}
                     className={classNames(item.className, {
-                        'active': activeList && activeList.id === item.id
+                        active: item.active
+                            ? item.active
+                            : activeList && activeList.id === item.id
                     })}
                     onClick={onClickItem ? () => onClickItem(item) : null}
                 >

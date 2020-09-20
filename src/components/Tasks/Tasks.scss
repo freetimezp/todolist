@@ -1,4 +1,7 @@
 .tasks {
+  &:not(:last-of-type) {
+    margin-bottom: 40px;
+  }
   &__title {
     padding-bottom: 20px;
     font-weight: bold;
