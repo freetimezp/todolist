@@ -18,16 +18,19 @@ body {
   border-radius: 10px;
   box-shadow: 1px 2px 20px #f3f3f3;
   font-size: 11px;
+  height: 700px;
+  overflow: hidden;
   &__sidebar {
     padding: 60px 20px;
-    background-color: #f4f6f8;
+    background-color: #dedfe2;
     width: 220px;
-    height: calc(100% - 120px);
+    height: 100%;
     border-right: 1px solid #f1f1f1;
   }
   &__tasks {
     flex: 1;
     padding: 60px;
+    overflow: auto;
   }
 }
 

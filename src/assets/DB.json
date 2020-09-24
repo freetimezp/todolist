@@ -131,6 +131,18 @@
       "text": "test1",
       "completed": false,
       "id": 17
+    },
+    {
+      "listId": 1,
+      "text": "1",
+      "completed": false,
+      "id": 18
+    },
+    {
+      "listId": 2,
+      "text": "",
+      "completed": false,
+      "id": 19
     }
   ],
   "colors": [
