@@ -20,7 +20,7 @@ function App() {
         axios.get('http://localhost:3001/colors').then(({data}) => { // get data from response
             setColors(data);
         });
-    }, []);
+    }, [lists]);
 
     const onAddListItem = (obj) => {
         const newList = [...lists, obj];
@@ -48,7 +48,7 @@ function App() {
     };
 
     useEffect(() => {
-        const listId = history.location.pathname.split('lists/')[0];
+        let listId = history.location.pathname.split('lists/')[1];
         if (lists) {
             const list = lists.find(list => list.id === Number(listId));
             setActiveItem(list);
@@ -92,7 +92,8 @@ function App() {
                         onClickItem={list => {
                             history.push(`/lists/${list.id}`);
                             //setActiveItem(list);
-                            //console.log(list);
+                            //console.log(history.location.pathname);
+                            //console.log(history);
                         }}
                         activeItem={activeItem}
                     />
