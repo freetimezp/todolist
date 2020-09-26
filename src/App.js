@@ -14,13 +14,13 @@ function App() {
     let history = useHistory();
 
     useEffect(() => {
-        axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => { // get data from response
+        axios.get('http://localhost:3001/lists?_expand=color&_embed=tasks').then(({data}) => {
             setLists(data);
         });
-        axios.get('http://localhost:3001/colors').then(({data}) => { // get data from response
+        axios.get('http://localhost:3001/colors').then(({data}) => {
             setColors(data);
         });
-    }, [lists]);
+    }, []);
 
     const onAddListItem = (obj) => {
         const newList = [...lists, obj];
@@ -37,6 +37,47 @@ function App() {
         setLists(newList);
     };
 
+    const onEditTask = (listId, taskId, taskText) => {
+        const newTaskText = window.prompt('Текст задачи', taskText);
+        if (!newTaskText) {
+            return;
+        }
+        const newList = lists.map(list => {
+            if (list.id === listId) {
+                list.tasks = list.tasks.map(task => {
+                    if (task.id === taskId) {
+                        task.text = newTaskText;
+                    }
+                    return task;
+                });
+            }
+            return list;
+        });
+        setLists(newList);
+        axios
+            .patch('http://localhost:3001/tasks/' + taskId, {text: newTaskText})
+            .catch(() => {
+                alert('Не удалось изменить задачу');
+            });
+    }
+
+    const onRemoveTask = (listId, taskId) => {
+        if (window.confirm('Вы действительно хотите удалить задачу?')) {
+            const newList = lists.map(item => {
+                if (item.id === listId) {
+                    item.tasks = item.tasks.filter(task => task.id !== taskId);
+                }
+                return item;
+            });
+            setLists(newList);
+            axios
+                .delete('http://localhost:3001/tasks/' + taskId)
+                .catch(() => {
+                    alert('Не удалось удалить задачу');
+                });
+        }
+    }
+
     const onEditListTitle = (id, title) => {
         const newLists = lists.map(list => {
             if (list.id === id) {
@@ -47,11 +88,17 @@ function App() {
         setLists(newLists);
     };
 
+
+    // this useEffect dont working normally
     useEffect(() => {
-        let listId = history.location.pathname.split('lists/')[1];
+        const listId = history.location.pathname.split('/lists/')[1];
+        //console.log(listId);
         if (lists) {
             const list = lists.find(list => list.id === Number(listId));
             setActiveItem(list);
+            //console.log(history.location.pathname);
+            //console.log(list);
+            //console.log(activeItem);
         }
     }, [lists, history.location.pathname]);
 
@@ -91,7 +138,9 @@ function App() {
                         }}
                         onClickItem={list => {
                             history.push(`/lists/${list.id}`);
-                            //setActiveItem(list);
+                            setActiveItem(list);
+                            //console.log(list);
+                            //console.log(activeItem);
                             //console.log(history.location.pathname);
                             //console.log(history);
                         }}
@@ -122,6 +171,8 @@ function App() {
                             list={activeItem}
                             onEditTitle={onEditListTitle}
                             onAddTask={onAddTask}
+                            onRemoveTask={onRemoveTask}
+                            onEditTask={onEditTask}
                         />
                     )}
                 </Route>

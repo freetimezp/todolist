@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
 
 import {Badge} from '../components';
 
 import removeSvg from '../../assets/img/close.svg';
 
 import './List.scss';
-import classNames from 'classnames';
 
 const List = ({items, isRemovable, onClick, onRemove, onClickItem, activeItem}) => {
     const removeList = (item) => {
