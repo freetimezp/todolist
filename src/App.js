@@ -88,6 +88,26 @@ function App() {
         setLists(newLists);
     };
 
+    const onCompleteTask = (listId, taskId, completed) => {
+        const newList = lists.map(list => {
+            if (list.id === listId) {
+                list.tasks = list.tasks.map(task => {
+                    if (task.id === taskId) {
+                        task.completed = completed;
+                    }
+                    return task;
+                });
+            }
+            return list;
+        });
+        setLists(newList);
+        axios
+            .patch('http://localhost:3001/tasks/' + taskId, {completed: completed})
+            .catch(() => {
+                alert('Не удалось обновить задачу');
+            });
+    };
+
 
     // this useEffect dont working normally
     useEffect(() => {
@@ -125,7 +145,7 @@ function App() {
                                     />
                                 </svg>),
                             name: 'Все задачи',
-                            active: true
+                            active: history.location.pathname === '/'
                         }
                     ]}/>
                 {lists ? ( // downloading lists from json server
@@ -158,8 +178,11 @@ function App() {
                         <Tasks
                             key={list.id}
                             list={list}
-                            onEditTitle={onEditListTitle}
                             onAddTask={onAddTask}
+                            onEditTitle={onEditListTitle}
+                            onRemoveTask={onRemoveTask}
+                            onEditTask={onEditTask}
+                            onCompleteTask={onCompleteTask}
                             withoutEmpty
                         />
                     ))
@@ -169,10 +192,11 @@ function App() {
                     {lists && activeItem && (
                         <Tasks
                             list={activeItem}
-                            onEditTitle={onEditListTitle}
                             onAddTask={onAddTask}
+                            onEditTitle={onEditListTitle}
                             onRemoveTask={onRemoveTask}
                             onEditTask={onEditTask}
+                            onCompleteTask={onCompleteTask}
                         />
                     )}
                 </Route>

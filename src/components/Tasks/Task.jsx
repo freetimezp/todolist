@@ -3,11 +3,14 @@ import React from 'react';
 import editTask from '../../assets/img/editTask.svg';
 import removeSvg from '../../assets/img/close.svg';
 
-const Task = ({task, list, onRemoveTask, onEditTask}) => {
+const Task = ({task, list, onRemoveTask, onEditTask, onCompleteTask}) => {
+    const onChangeCheckbox = (e) => {
+        onCompleteTask(list.id, task.id, e.target.checked);
+    }
     return (
         <div key={task.id} className="tasks__items-row">
             <div className="checkbox">
-                <input id={`task-${task.id}`} type="checkbox"/>
+                <input onChange={onChangeCheckbox} id={`task-${task.id}`} checked={task.completed} type="checkbox"/>
                 <label htmlFor={`task-${task.id}`}>
                     <svg
                         width="11"

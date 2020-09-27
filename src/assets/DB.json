@@ -41,14 +41,9 @@
       "id": 14
     },
     {
-      "name": "12",
+      "name": "123",
       "colorId": 2,
       "id": 15
-    },
-    {
-      "name": "1",
-      "colorId": 2,
-      "id": 16
     }
   ],
   "tasks": [
@@ -79,26 +74,20 @@
     {
       "listId": 1,
       "text": "test",
-      "completed": false,
+      "completed": true,
       "id": 6
     },
     {
       "listId": 1,
       "text": "qweqwe",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
       "listId": 1,
       "text": "qweqwe",
-      "completed": false,
+      "completed": true,
       "id": 8
-    },
-    {
-      "listId": 1,
-      "text": "123",
-      "completed": false,
-      "id": 9
     },
     {
       "listId": 4,
@@ -107,46 +96,40 @@
       "id": 10
     },
     {
-      "listId": 1,
-      "text": "321",
-      "completed": false,
-      "id": 12
-    },
-    {
       "listId": 3,
       "text": "Life",
-      "completed": false,
+      "completed": true,
       "id": 15
     },
     {
       "listId": 5,
       "text": "Live",
-      "completed": false,
+      "completed": true,
       "id": 16
-    },
-    {
-      "listId": 1,
-      "text": "test1",
-      "completed": false,
-      "id": 17
-    },
-    {
-      "listId": 1,
-      "text": "1",
-      "completed": false,
-      "id": 18
-    },
-    {
-      "listId": 1,
-      "text": "123",
-      "completed": false,
-      "id": 20
     },
     {
       "listId": 5,
       "text": "test1",
-      "completed": false,
+      "completed": true,
       "id": 21
+    },
+    {
+      "listId": 13,
+      "text": "1",
+      "completed": false,
+      "id": 22
+    },
+    {
+      "listId": 15,
+      "text": "123",
+      "completed": false,
+      "id": 23
+    },
+    {
+      "listId": 15,
+      "text": "123",
+      "completed": false,
+      "id": 24
     }
   ],
   "colors": [

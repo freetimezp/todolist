@@ -2,6 +2,9 @@
   &:not(:last-of-type) {
     margin-bottom: 40px;
   }
+  a {
+    text-decoration: none;
+  }
   &__title {
     padding-bottom: 20px;
     font-weight: bold;
@@ -72,6 +75,15 @@
       display: flex;
       align-items: center;
       margin-bottom: 10px;
+      padding: 2px;
+      border: 1px solid transparent;
+      transition: all 0.5s ease;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        border: 1px solid #c9d1d3;
+        box-shadow: 1px 2px 5px darken(#c9d1d3, 10%);
+      }
       &:hover &-actions {
         opacity: 1;
       }
